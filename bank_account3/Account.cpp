@@ -1,5 +1,6 @@
 #include "Account.h"
 #include "BankingCommonDecl.h"
+#include "AccountException.h"
 
 Account::Account(int accId, String name, int balance)
 	: accId(accId), balance(balance)
@@ -12,8 +13,14 @@ int Account::GetAccId() const //계좌ID 반환
 	return accId;
 }
 
-void Account::SetMoney(int money)   //입금 
+void Account::SetMoney(int money) throw (MinusDepositException)  //입금 
 {
+	if (money < 0)
+	{
+		MinusDepositException expt(money);
+		throw expt;
+	}
+
 	this->balance += money;
 }
 
