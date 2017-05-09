@@ -7,6 +7,9 @@ const int NAME_LEN = 20;  //고객의 이름길이
 
 enum{MAKE=1, DEPOSIT, WITHDRAW, SHOW, EXIT}; //은행계좌 메뉴정보
 
+enum{NORMAL=1, CREDIT};   //계좌종류 정보 
+
+
 /*고객의 계좌정보*/
 class Account
 {
@@ -113,6 +116,9 @@ public:
 	void Deposit();        //입금
 	void Withdraw();       //출금
 	void ShowAllAccount(); //전체고객 잔액조회
+
+	void MakeNormalAccount();  //보통계좌 개설
+	void MakeHighCreditAccount(); //신용계좌 개설
 };
 
 AccountHandler::AccountHandler() : accNum(0)
@@ -139,8 +145,27 @@ void AccountHandler::ShowMenu()
 /* 계좌 개설 */
 void AccountHandler::MakeAccount()
 {
-	cout << "[계좌개설]" << endl;
+	cout << "[계좌종류선택]" << endl;
+	cout << "1.보통예금계좌 2.신용신뢰계좌" << endl;
 	
+	int choice;
+	cout << "선택: ";
+	cin >> choice;
+
+	if (choice == NORMAL)
+	{
+		MakeNormalAccount();
+	}
+	else if (choice == CREDIT)
+	{
+		MakeHighCreditAccount();
+	}
+}
+
+
+void  AccountHandler::MakeNormalAccount()  //보통계좌 개설
+{
+	cout << "[보통예금계좌 개설]" << endl;
 	int accId;
 	cout << "계좌ID: ";
 	cin >> accId;
@@ -159,6 +184,9 @@ void AccountHandler::MakeAccount()
 
 	accArr[accNum++] = new NormalAccount(accId, name, balance, ratio);
 }
+
+void  AccountHandler::MakeHighCreditAccount() //신용계좌 개설
+{}
 
 /* 전체고객 잔액조회 */
 void AccountHandler::ShowAllAccount()
