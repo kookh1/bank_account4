@@ -15,6 +15,16 @@ Account::Account(const Account &ref)   //복사 생성자
 	strcpy(this->name, ref.name);
 }
 
+Account& Account::operator=(const Account& ref)
+{
+	accId = ref.accId;
+	balance = ref.balance;
+	this->name = new char[strlen(ref.name) + 1];
+	strcpy(this->name, ref.name);
+
+	return *this;
+}
+
 Account::~Account()
 {
 	delete[] name;

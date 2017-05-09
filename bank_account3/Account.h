@@ -12,6 +12,7 @@ private:
 public:
 	Account(int accId, char *name, int balance);
 	Account(const Account &ref);
+	Account& operator=(const Account& ref);
 	~Account();
 
 	int GetAccId() const; //°èÁÂID ¹ÝÈ¯
