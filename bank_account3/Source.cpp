@@ -35,7 +35,7 @@ public:
 		delete[] name;
 	}
 
-	int GetAccId()  //계좌ID 반환
+	int GetAccId() const //계좌ID 반환
 	{
 		return accId;
 	}
@@ -54,7 +54,7 @@ public:
 		return this->balance;
 	}
 
-	void ShowAccount()   //계좌정보 보기
+	void ShowAccount() const  //계좌정보 보기
 	{
 		cout << "계좌ID: " << this->accId << endl;
 		cout << "이름: " << this->name << endl;
