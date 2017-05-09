@@ -9,7 +9,7 @@ class NormalAccount : public Account
 private:
 	int ratio;   //¿Ã¿≤
 public:
-	NormalAccount(int accId, char *name, int balance, int ratio)
+	NormalAccount(int accId, String name, int balance, int ratio)
 		: Account(accId, name, balance), ratio(ratio)
 	{}
 

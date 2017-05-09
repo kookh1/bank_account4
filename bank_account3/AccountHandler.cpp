@@ -52,7 +52,7 @@ void  AccountHandler::MakeNormalAccount()  //보통계좌 개설
 	cout << "계좌ID: ";
 	cin >> accId;
 
-	char name[NAME_LEN];
+	String name;
 	cout << "이름: ";
 	cin >> name;
 
@@ -74,7 +74,7 @@ void  AccountHandler::MakeHighCreditAccount() //신용신뢰계좌 개설
 	cout << "계좌ID: ";
 	cin >> accId;
 
-	char name[NAME_LEN];
+	String name;
 	cout << "이름: ";
 	cin >> name;
 

@@ -9,7 +9,7 @@ class HighCreditAccount : public NormalAccount
 private:
 	int specialRatio;   //추가 이율
 public:
-	HighCreditAccount(int accId, char *name, int balance, int ratio, int special)
+	HighCreditAccount(int accId, String name, int balance, int ratio, int special)
 		: NormalAccount(accId, name, balance, ratio), specialRatio(special)
 	{}
 

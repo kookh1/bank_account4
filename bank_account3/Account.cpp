@@ -1,33 +1,10 @@
 #include "Account.h"
 #include "BankingCommonDecl.h"
 
-Account::Account(int accId, char *name, int balance)
+Account::Account(int accId, String name, int balance)
 	: accId(accId), balance(balance)
 {
-	this->name = new char[strlen(name) + 1];
-	strcpy(this->name, name);
-}
-
-Account::Account(const Account &ref)   //복사 생성자
-	: accId(ref.accId), balance(ref.balance)
-{
-	this->name = new char[strlen(ref.name) + 1];
-	strcpy(this->name, ref.name);
-}
-
-Account& Account::operator=(const Account& ref)
-{
-	accId = ref.accId;
-	balance = ref.balance;
-	this->name = new char[strlen(ref.name) + 1];
-	strcpy(this->name, ref.name);
-
-	return *this;
-}
-
-Account::~Account()
-{
-	delete[] name;
+	this->name = name;
 }
 
 int Account::GetAccId() const //계좌ID 반환

@@ -1,20 +1,19 @@
 #ifndef __ACCOUNT_H__
 #define __ACCOUNT_H__
 
+#include "String.h"
+
 /*∞Ì∞¥¿« ∞Ë¡¬¡§∫∏*/
 class Account
 {
 private:
 	int accId;           //∞Ë¡¬ID
-	char *name;          //∞Ì∞¥ ¿Ã∏ß
+	String name;         //∞Ì∞¥ ¿Ã∏ß
 	int balance;         //∞Ì∞¥¿« ¿‹æ◊
 
 public:
-	Account(int accId, char *name, int balance);
-	Account(const Account &ref);
-	Account& operator=(const Account& ref);
-	~Account();
-
+	Account(int accId, String name, int balance);
+	
 	int GetAccId() const; //∞Ë¡¬ID π›»Ø
 	virtual void SetMoney(int money) = 0;   //¿‘±› 
 	int GetMoney(int money);   //√‚±›
