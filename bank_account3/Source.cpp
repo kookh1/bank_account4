@@ -14,7 +14,7 @@ struct Account
 };
 
 Account accArr[100];  //고객 계좌정보 저장을 위한 구조체 배열
-
+int accNum = 0;       //고객 계좌 개수
 
 /* 은행계좌 관리 기능*/
 void ShowMenu();       //메뉴 출력
@@ -35,6 +35,29 @@ void ShowMenu()
 	cout << "5. 프로그램 종료" << endl<<endl;
 }
 
+/* 계좌 개설 */
+void MakeAccount()
+{
+	cout << "[계좌개설]" << endl;
+	
+	int accId;
+	cout << "계좌ID: ";
+	cin >> accId;
+
+	char name[NAME_LEN];
+	cout << "이름: ";
+	cin >> name;
+
+	int balance;
+	cout << "입금액: " << endl;
+	cin >> balance;
+
+	accArr[accNum].accId = accId;
+	strcpy(accArr[accNum].name, name);
+	accArr[accNum].balance = balance;
+	accNum += 1;
+}
+
 
 int main()
 {
@@ -49,7 +72,7 @@ int main()
 		switch (choice)
 		{
 		case 1:
-
+			MakeAccount();
 			break;
 		case 5:
 			cout << "프로그램을 종료합니다." << endl;
