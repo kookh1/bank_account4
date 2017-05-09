@@ -24,10 +24,19 @@ void Account::SetMoney(int money) throw (MinusDepositException)  //입금
 	this->balance += money;
 }
 
-int Account::GetMoney(int money)   //출금
+int Account::GetMoney(int money) throw (InsufficientBalanceException, MinusDepositException)   //출금
 {
+	if (money < 0)
+	{
+		MinusDepositException expt(money);
+		throw expt;
+	}
+
 	if (money > this->balance)
-		return -1;
+	{
+		InsufficientBalanceException expt(money - this->balance);
+		throw expt;
+	}
 
 	this->balance -= money;
 	return this->balance;

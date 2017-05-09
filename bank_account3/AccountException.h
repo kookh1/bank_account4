@@ -13,6 +13,7 @@ public:
 	void ShowExceptionReason()
 	{
 		cout << "[예외 메시지: " << reqDep << "는 입금불가]" << endl;
+		cout << "다시 입력해주세요." << endl << endl;
 	}
 };
 
@@ -26,6 +27,7 @@ public:
 	void ShowExceptionReason()
 	{
 		cout << "[예외 메시지: 잔액 " << balance << ", 잔액부족]" << endl;
+		cout << "다시 입력해주세요." << endl << endl;
 	}
 };
 
