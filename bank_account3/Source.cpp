@@ -69,6 +69,29 @@ void ShowAllAccount()
 	}
 }
 
+/* 입금 */
+void Deposit()
+{
+	cout << "[입 금]" << endl;
+
+	int accId;
+	cout << "계좌ID: ";
+	cin >> accId;
+
+	for (int i = 0; i < accNum; i++)
+	{
+		if (accArr[i].accId == accId)
+		{
+			int money;
+			cout << "입금액: ";
+			cin >> money;
+
+			accArr[i].balance += money;
+			return;
+		}
+	}
+	cout << "해당 ID가 존재하지 않습니다." << endl;
+}
 
 int main()
 {
@@ -84,6 +107,9 @@ int main()
 		{
 		case 1:
 			MakeAccount();
+			break;
+		case 2:
+			Deposit();
 			break;
 		case 4:
 			ShowAllAccount();
