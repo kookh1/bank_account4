@@ -93,6 +93,32 @@ void Deposit()
 	cout << "해당 ID가 존재하지 않습니다." << endl;
 }
 
+
+/* 출금 */
+void Withdraw()
+{
+	cout << "[출 금]" << endl;
+
+	int accId;
+	cout << "계좌ID: ";
+	cin >> accId;
+
+	for (int i = 0; i < accNum; i++)
+	{
+		if (accArr[i].accId == accId)
+		{
+			int money;
+			cout << "출금액: ";
+			cin >> money;
+
+			accArr[i].balance -= money;
+			return;
+		}
+	}
+	cout << "해당 ID가 존재하지 않습니다." << endl;
+}
+
+
 int main()
 {
 	while (1)
@@ -106,13 +132,16 @@ int main()
 		switch (choice)
 		{
 		case 1:
-			MakeAccount();
+			MakeAccount();   //계좌 개설
 			break;
 		case 2:
-			Deposit();
+			Deposit();       //입금
+			break;
+		case 3:
+			Withdraw();      //출금
 			break;
 		case 4:
-			ShowAllAccount();
+			ShowAllAccount(); //모든 계좌정보 메뉴 출력
 			break;
 		case 5:
 			cout << "프로그램을 종료합니다." << endl;
@@ -123,7 +152,5 @@ int main()
 		}
 		
 	}
-
-
 	return 0;
 }
