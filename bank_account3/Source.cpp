@@ -38,9 +38,13 @@ public:
 		this->balance += money;
 	}
 	
-	void GetMoney(int money)   //출금
+	int GetMoney(int money)   //출금
 	{
+		if (money > this->balance)
+			return -1;
+
 		this->balance -= money;
+		return this->balance;
 	}
 
 	void ShowAccount()   //계좌정보 보기
@@ -145,7 +149,12 @@ void Withdraw()
 			cout << "출금액: ";
 			cin >> money;
 
-			accArr[i]->GetMoney(money);
+			if (accArr[i]->GetMoney(money) == -1)  //balance < money 경우 -1반환
+			{
+				cout << "잔액부족" << endl;
+				return;
+			}
+			cout << "출금완료" << endl;
 			return;
 		}
 	}
