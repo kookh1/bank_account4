@@ -9,6 +9,8 @@ enum{MAKE=1, DEPOSIT, WITHDRAW, SHOW, EXIT}; //은행계좌 메뉴정보
 
 enum{NORMAL=1, CREDIT};   //계좌종류 정보 
 
+enum{LEVEL_A=7, LEVEL_B=4, LEVEL_C=2};  //신용신뢰 등급 별 이자율 정보
+
 
 /*고객의 계좌정보*/
 class Account
@@ -48,7 +50,30 @@ public:
 	virtual void ShowAccount() const
 	{
 		Account::ShowAccount();
-		cout << "이율: " << ratio << endl << endl;
+		cout << "이율: " << ratio << endl;
+	}
+};
+
+/*신용 계좌정보*/
+class HighCreditAccount : public NormalAccount
+{
+private:
+	int specialRatio;   //추가 이율
+public:
+	HighCreditAccount(int accId, char *name, int balance, int ratio, int special)
+		: NormalAccount(accId, name, balance, ratio), specialRatio(special)
+	{}
+
+	virtual void SetMoney(int money)
+	{
+		NormalAccount::SetMoney(money);   //입금액
+		Account::SetMoney((int)money*(specialRatio / 100.0));  //입금액 * 이자
+	}
+
+	virtual void ShowAccount() const
+	{
+		NormalAccount::ShowAccount();
+		cout << "추가이율: " << specialRatio << endl << endl;
 	}
 };
 
@@ -185,8 +210,44 @@ void  AccountHandler::MakeNormalAccount()  //보통계좌 개설
 	accArr[accNum++] = new NormalAccount(accId, name, balance, ratio);
 }
 
-void  AccountHandler::MakeHighCreditAccount() //신용계좌 개설
-{}
+void  AccountHandler::MakeHighCreditAccount() //신용신뢰계좌 개설
+{
+	cout << "[신용신뢰계좌 개설]" << endl;
+	int accId;
+	cout << "계좌ID: ";
+	cin >> accId;
+
+	char name[NAME_LEN];
+	cout << "이름: ";
+	cin >> name;
+
+	int balance;
+	cout << "입금액: ";
+	cin >> balance;
+
+	int ratio;
+	cout << "이율: ";
+	cin >> ratio;
+
+	int level;
+	cout << "신용등급(1toA, 2toB, 3toC): ";
+	cin >> level;
+
+	switch(level)
+	{
+	case 1:
+		accArr[accNum++] = new HighCreditAccount(accId, name, balance, ratio, LEVEL_A);
+		break;
+
+	case 2:
+		accArr[accNum++] = new HighCreditAccount(accId, name, balance, ratio, LEVEL_B);
+		break;
+
+	case 3:
+		accArr[accNum++] = new HighCreditAccount(accId, name, balance, ratio, LEVEL_C);
+		break;
+	}
+}
 
 /* 전체고객 잔액조회 */
 void AccountHandler::ShowAllAccount()
@@ -194,6 +255,7 @@ void AccountHandler::ShowAllAccount()
 	for (int i = 0; i < accNum; i++)
 	{
 		accArr[i]->ShowAccount();
+		cout << endl;
 	}
 }
 
