@@ -23,6 +23,13 @@ public:
 		strcpy(this->name, name);
 	}
 	
+	Account(const Account &ref)   //복사 생성자
+		: accId(ref.accId), balance(ref.balance)
+	{
+		this->name = new char[strlen(ref.name) + 1];
+		strcpy(this->name, ref.name);
+	}
+
 	~Account()
 	{
 		delete[] name;
