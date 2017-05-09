@@ -2,6 +2,7 @@
 #include "BankingCommonDecl.h"
 #include "NormalAccount.h"
 #include "HighCreditAccount.h"
+#include "AccountException.h"
 
 AccountHandler::AccountHandler() : accNum(0)
 {}
@@ -125,20 +126,27 @@ void AccountHandler::Deposit()
 	cout << "계좌ID: ";
 	cin >> accId;
 
-	for (int i = 0; i < accNum; i++)
+	try
 	{
-		if (accArr[i]->GetAccId() == accId)
+		for (int i = 0; i < accNum; i++)
 		{
-			int money;
-			cout << "입금액: ";
-			cin >> money;
+			if (accArr[i]->GetAccId() == accId)
+			{
+				int money;
+				cout << "입금액: ";
+				cin >> money;
 
-			accArr[i]->SetMoney(money);
-			cout << "입금완료" << endl;
-			return;
+				accArr[i]->SetMoney(money);
+				cout << "입금완료" << endl;
+				return;
+			}
 		}
+		cout << "해당 ID가 존재하지 않습니다." << endl;
 	}
-	cout << "해당 ID가 존재하지 않습니다." << endl;
+	catch (MinusDepositException expt)
+	{
+		expt.ShowExceptionReason();
+	}
 }
 
 
