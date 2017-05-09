@@ -5,6 +5,7 @@ using namespace std;
 /* 상수 정보 */
 const int NAME_LEN = 20;  //고객의 이름길이
 
+enum{MAKE=1, DEPOSIT, WITHDRAW, SHOW, EXIT};
 
 /*고객의 계좌정보*/
 class Account
@@ -164,19 +165,19 @@ int main()
 
 		switch (choice)
 		{
-		case 1:
+		case MAKE:
 			MakeAccount();   //계좌 개설
 			break;
-		case 2:
+		case DEPOSIT:
 			Deposit();       //입금
 			break;
-		case 3:
+		case WITHDRAW:
 			Withdraw();      //출금
 			break;
-		case 4:
+		case SHOW:
 			ShowAllAccount(); //모든 계좌정보 메뉴 출력
 			break;
-		case 5:
+		case EXIT:
 			cout << "프로그램을 종료합니다." << endl;
 			return 0;
 		default:
