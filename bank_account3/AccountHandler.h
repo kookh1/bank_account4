@@ -3,12 +3,13 @@
 
 #include "Account.h"
 #include "AccountArray.h"
+#include "BoundCheckArray.h"
 
 /*고객의 계좌정보를 처리*/
 class AccountHandler
 {
 private:
-	BoundCheckPointPtrArray accArr;  //고객 계좌정보 저장을 위한 구조체 배열
+	BoundCheckArray<Account*> accArr;  //고객 계좌정보 저장을 위한 구조체 배열
 	int accNum;       //고객 계좌 개수
 
 public:
