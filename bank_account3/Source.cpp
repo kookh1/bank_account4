@@ -49,13 +49,24 @@ void MakeAccount()
 	cin >> name;
 
 	int balance;
-	cout << "입금액: " << endl;
+	cout << "입금액: ";
 	cin >> balance;
 
 	accArr[accNum].accId = accId;
-	strcpy(accArr[accNum].name, name);
+	strcpy_s(accArr[accNum].name, name);
 	accArr[accNum].balance = balance;
 	accNum += 1;
+}
+
+/* 전체고객 잔액조회 */
+void ShowAllAccount()
+{
+	for (int i = 0; i < accNum; i++)
+	{
+		cout << "계좌ID: " << accArr[i].accId << endl;
+		cout << "이름: " << accArr[i].name << endl;
+		cout << "잔액: " << accArr[i].balance << endl<<endl;
+	}
 }
 
 
@@ -73,6 +84,9 @@ int main()
 		{
 		case 1:
 			MakeAccount();
+			break;
+		case 4:
+			ShowAllAccount();
 			break;
 		case 5:
 			cout << "프로그램을 종료합니다." << endl;
