@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cstring>
 using namespace std;
 
 /* 상수 정보 */
@@ -6,14 +7,50 @@ const int NAME_LEN = 20;  //고객의 이름길이
 
 
 /*고객의 계좌정보*/
-struct Account
+class Account
 {
+private:
 	int accId;           //계좌ID
-	char name[NAME_LEN]; //고객 이름
+	char *name;          //고객 이름
 	int balance;         //고객의 잔액
+
+public:
+	Account(int accId, char *name, int balance)
+		: accId(accId), balance(balance)
+	{
+		this->name = new char[strlen(name) + 1];
+		strcpy(this->name, name);
+	}
+	
+	~Account()
+	{
+		delete[] name;
+	}
+
+	int GetAccId()  //계좌ID 반환
+	{
+		return accId;
+	}
+	
+	void SetMoney(int money)   //입금 
+	{
+		this->balance += money;
+	}
+	
+	void GetMoney(int money)   //출금
+	{
+		this->balance -= money;
+	}
+
+	void ShowAccount()   //계좌정보 보기
+	{
+		cout << "계좌ID: " << this->accId << endl;
+		cout << "이름: " << this->name << endl;
+		cout << "잔액: " << this->balance << endl << endl;
+	}
 };
 
-Account accArr[100];  //고객 계좌정보 저장을 위한 구조체 배열
+Account *accArr[100];  //고객 계좌정보 저장을 위한 구조체 배열
 int accNum = 0;       //고객 계좌 개수
 
 /* 은행계좌 관리 기능*/
@@ -52,10 +89,8 @@ void MakeAccount()
 	cout << "입금액: ";
 	cin >> balance;
 
-	accArr[accNum].accId = accId;
-	strcpy_s(accArr[accNum].name, name);
-	accArr[accNum].balance = balance;
-	accNum += 1;
+
+	accArr[accNum++] = new Account(accId, name, balance);
 }
 
 /* 전체고객 잔액조회 */
@@ -63,9 +98,7 @@ void ShowAllAccount()
 {
 	for (int i = 0; i < accNum; i++)
 	{
-		cout << "계좌ID: " << accArr[i].accId << endl;
-		cout << "이름: " << accArr[i].name << endl;
-		cout << "잔액: " << accArr[i].balance << endl<<endl;
+		accArr[i]->ShowAccount();
 	}
 }
 
@@ -80,13 +113,13 @@ void Deposit()
 
 	for (int i = 0; i < accNum; i++)
 	{
-		if (accArr[i].accId == accId)
+		if (accArr[i]->GetAccId() == accId)
 		{
 			int money;
 			cout << "입금액: ";
 			cin >> money;
 
-			accArr[i].balance += money;
+			accArr[i]->SetMoney(money);
 			return;
 		}
 	}
@@ -105,13 +138,13 @@ void Withdraw()
 
 	for (int i = 0; i < accNum; i++)
 	{
-		if (accArr[i].accId == accId)
+		if (accArr[i]->GetAccId() == accId)
 		{
 			int money;
 			cout << "출금액: ";
 			cin >> money;
 
-			accArr[i].balance -= money;
+			accArr[i]->GetMoney(money);
 			return;
 		}
 	}
