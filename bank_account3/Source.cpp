@@ -125,6 +125,7 @@ void Deposit()
 			cin >> money;
 
 			accArr[i]->SetMoney(money);
+			cout << "입금완료" << endl;
 			return;
 		}
 	}
