@@ -21,9 +21,32 @@ public:
 	~Account();
 
 	int GetAccId() const; //계좌ID 반환
-	void SetMoney(int money);   //입금 
+	virtual void SetMoney(int money)=0;   //입금 
 	int GetMoney(int money);   //출금
-	void ShowAccount() const;  //계좌정보 보기
+	virtual void ShowAccount() const = 0;  //계좌정보 보기
+};
+
+/*보통 계좌정보*/
+class NormalAccount : public Account
+{
+private:
+	int ratio;   //이율
+public:
+	NormalAccount(int accId, char *name, int balance, int ratio)
+		: Account(accId, name, balance), ratio(ratio)
+	{}
+	
+	virtual void SetMoney(int money)
+	{
+		Account::SetMoney(money);   //입금액
+		Account::SetMoney((int)money*(ratio / 100.0));  //입금액 * 이자
+	}
+
+	virtual void ShowAccount() const
+	{
+		Account::ShowAccount();
+		cout << "이율: " << ratio << endl << endl;
+	}
 };
 
 
@@ -69,11 +92,11 @@ void Account::ShowAccount() const  //계좌정보 보기
 {
 	cout << "계좌ID: " << this->accId << endl;
 	cout << "이름: " << this->name << endl;
-	cout << "잔액: " << this->balance << endl << endl;
+	cout << "잔액: " << this->balance << endl;
 }
 
 
-
+/*고객의 계좌정보를 처리*/
 
 class AccountHandler
 {
@@ -130,8 +153,11 @@ void AccountHandler::MakeAccount()
 	cout << "입금액: ";
 	cin >> balance;
 
+	int ratio;
+	cout << "이율: ";
+	cin >> ratio;
 
-	accArr[accNum++] = new Account(accId, name, balance);
+	accArr[accNum++] = new NormalAccount(accId, name, balance, ratio);
 }
 
 /* 전체고객 잔액조회 */
