@@ -62,19 +62,36 @@ public:
 	}
 };
 
-Account *accArr[100];  //고객 계좌정보 저장을 위한 구조체 배열
-int accNum = 0;       //고객 계좌 개수
 
-/* 은행계좌 관리 기능*/
-void ShowMenu();       //메뉴 출력
-void MakeAccount();    //계좌 개설
-void Deposit();        //입금
-void Withdraw();       //출금
-void ShowAllAccount(); //전체고객 잔액조회
+class AccountHandler
+{
+private:
+	Account *accArr[100];  //고객 계좌정보 저장을 위한 구조체 배열
+	int accNum;       //고객 계좌 개수
+
+public:
+	/* 은행계좌 관리 기능*/
+	AccountHandler();
+	~AccountHandler();
+	void ShowMenu();       //메뉴 출력
+	void MakeAccount();    //계좌 개설
+	void Deposit();        //입금
+	void Withdraw();       //출금
+	void ShowAllAccount(); //전체고객 잔액조회
+};
+
+AccountHandler::AccountHandler() : accNum(0)
+{}
+
+AccountHandler::~AccountHandler()
+{
+	for (int i = 0; i < accNum; i++)
+		delete accArr[i];
+}
 
 
 /* 메뉴 출력*/
-void ShowMenu()
+void AccountHandler::ShowMenu()
 {
 	cout <<endl<< "-----Menu-----" << endl;
 	cout << "1. 계좌개설" << endl;
@@ -85,7 +102,7 @@ void ShowMenu()
 }
 
 /* 계좌 개설 */
-void MakeAccount()
+void AccountHandler::MakeAccount()
 {
 	cout << "[계좌개설]" << endl;
 	
@@ -106,7 +123,7 @@ void MakeAccount()
 }
 
 /* 전체고객 잔액조회 */
-void ShowAllAccount()
+void AccountHandler::ShowAllAccount()
 {
 	for (int i = 0; i < accNum; i++)
 	{
@@ -115,7 +132,7 @@ void ShowAllAccount()
 }
 
 /* 입금 */
-void Deposit()
+void AccountHandler::Deposit()
 {
 	cout << "[입 금]" << endl;
 
@@ -141,7 +158,7 @@ void Deposit()
 
 
 /* 출금 */
-void Withdraw()
+void AccountHandler::Withdraw()
 {
 	cout << "[출 금]" << endl;
 
@@ -172,9 +189,10 @@ void Withdraw()
 
 int main()
 {
+	AccountHandler manager;
 	while (1)
 	{
-		ShowMenu();   //메뉴 출력
+		manager.ShowMenu();   //메뉴 출력
 
 		int choice;
 		cout << "선택: ";
@@ -183,20 +201,18 @@ int main()
 		switch (choice)
 		{
 		case MAKE:
-			MakeAccount();   //계좌 개설
+			manager.MakeAccount();   //계좌 개설
 			break;
 		case DEPOSIT:
-			Deposit();       //입금
+			manager.Deposit();       //입금
 			break;
 		case WITHDRAW:
-			Withdraw();      //출금
+			manager.Withdraw();      //출금
 			break;
 		case SHOW:
-			ShowAllAccount(); //모든 계좌정보 메뉴 출력
+			manager.ShowAllAccount(); //모든 계좌정보 메뉴 출력
 			break;
 		case EXIT:
-			for (int i = 0; i < accNum; i++)
-				delete accArr[i];
 			cout << "프로그램을 종료합니다." << endl;
 			return 0;
 		default:
